@@ -1,5 +1,6 @@
 package com.andreferreira.springbootmongo.resources;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -7,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.andreferreira.springbootmongo.domain.User;
 import com.andreferreira.springbootmongo.dto.UserDTO;
@@ -38,6 +42,18 @@ public class UserResource {
 		User userById = userService.findById(id);
 		
 		return ResponseEntity.ok().body(new UserDTO(userById));
+	}
+	
+	@PostMapping
+	public ResponseEntity<Void> insertUser(@RequestBody UserDTO user){
+		
+		User insertUser = userService.fromDTO(user);
+		
+		insertUser = userService.insertUser(insertUser);
+		
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(insertUser.getId()).toUri();
+		
+		return ResponseEntity.created(uri).build();
 	}
 	
 	
