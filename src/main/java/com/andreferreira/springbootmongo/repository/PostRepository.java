@@ -9,13 +9,12 @@ import org.springframework.stereotype.Repository;
 import com.andreferreira.springbootmongo.domain.Post;
 
 @Repository
-public interface PostRepository extends MongoRepository<Post,String> {
+public interface PostRepository extends MongoRepository<Post, String> {
+
 	
-	/*
-	 * @Query("{ 'title': { $regex: ?0, $options: 'i' } }") List<Post>
-	 * searchTitle(String text);
-	 */
-	
+	@Query("{ 'title': { $regex: ?0, $options: 'i' } }")
+	List<Post> searchTitle(String text);	 
+
 	List<Post> findByTitleContainingIgnoreCase(String text);
 
 }
