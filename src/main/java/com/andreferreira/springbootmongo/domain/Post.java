@@ -26,6 +26,7 @@ public class Post implements Serializable {
 	}
 
 	public Post(String id, Date date, String title, String body, AuthorDTO author) {
+		super();
 		this.id = id;
 		this.date = date;
 		this.title = title;
@@ -65,11 +66,11 @@ public class Post implements Serializable {
 		this.body = body;
 	}
 
-	public AuthorDTO geAuthor() {
+	public AuthorDTO getAuthor() {
 		return author;
 	}
 
-	public void setUser(AuthorDTO author) {
+	public void setAuthor(AuthorDTO author) {
 		this.author = author;
 	}
 
