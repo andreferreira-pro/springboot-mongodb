@@ -72,7 +72,7 @@ public class UserResource {
 		
 		userRepo.setId(id);
 		
-		userRepo = userService.updateUser(userUpdate);
+		userRepo = userService.updateUser(userRepo);
 		
 		return ResponseEntity.noContent().build();
 		}
