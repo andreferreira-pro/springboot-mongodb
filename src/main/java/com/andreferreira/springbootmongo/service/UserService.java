@@ -42,6 +42,24 @@ public class UserService {
 		repository.deleteById(id);
 	}
 	
+	public User updateUser (UserDTO userUpdate) {
+		
+		User userRepo = fromDTO(userUpdate);
+		
+		updateData(userUpdate,userRepo);
+		
+		return repository.save(userRepo);
+		
+	}
+	
+
+	private void updateData(UserDTO userRepo, User userUpdate) {
+		
+		userRepo.setName(userUpdate.getName());
+		
+		userRepo.setEmail(userUpdate.getEmail());
+		
+	}
 
 	public User fromDTO (UserDTO userDTO) {
 		
