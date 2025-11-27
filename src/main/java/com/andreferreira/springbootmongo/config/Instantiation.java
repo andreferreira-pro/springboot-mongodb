@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import com.andreferreira.springbootmongo.domain.Post;
 import com.andreferreira.springbootmongo.domain.User;
 import com.andreferreira.springbootmongo.dto.AuthorDTO;
+import com.andreferreira.springbootmongo.dto.CommentDTO;
 import com.andreferreira.springbootmongo.repository.PostRepository;
 import com.andreferreira.springbootmongo.repository.UserRepository;
 
@@ -38,8 +39,15 @@ public class Instantiation implements CommandLineRunner {
 		
 		userRepository.saveAll(Arrays.asList(maria, alex, bob));
 		
-		Post post1 = new Post(null,sdf.parse("21/03/2025"), "Partiu viagem!!", "Vou viajar para São Paulo. Abraços!", new AuthorDTO(maria));
+		Post post1 = new Post(null,sdf.parse("21/03/2025"), "Partiu viagem!!", "Vou viajar para São Paulo. Abraços!", new AuthorDTO(bob));
 		Post post2 = new Post(null,sdf.parse("23/03/2025"), "Bom dia!!!", "Acordei Feliz hoje!", new AuthorDTO(maria));
+		
+		CommentDTO comment1 = new CommentDTO("Boa viagem mano!!", sdf.parse("25/03/2025"), new AuthorDTO(alex));
+		CommentDTO comment2 = new CommentDTO("Aproveite bastante!!", sdf.parse("25/03/2025"), new AuthorDTO(maria));
+		CommentDTO comment3 = new CommentDTO("Tenha um ótimo dia!!", sdf.parse("26/03/2025"), new AuthorDTO(bob));
+		
+		post1.getComments().addAll(Arrays.asList(comment1,comment2));
+		post2.getComments().addAll(Arrays.asList(comment3));
 		
 		postResitory.saveAll(Arrays.asList(post1,post2));
 		
